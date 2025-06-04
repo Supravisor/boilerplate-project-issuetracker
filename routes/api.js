@@ -17,7 +17,7 @@ module.exports = function (app) {
       let body = req.body;
       if (body.issue_title && body.issue_text && body.created_by) {
         array.push({
-          "id": number++,
+          "_id": number++,
           "issue_title": body.issue_title,
           "issue_text": body.issue_text,
           "created_on": new Date(),
@@ -28,6 +28,7 @@ module.exports = function (app) {
           "status_text": body.status_text || ''
         });
         console.log(array);
+        return res.json(array[array.length - 1]);
       }
 
     })
