@@ -29,6 +29,8 @@ module.exports = function (app) {
         });
         console.log(array);
         return res.json(array[array.length - 1]);
+      } else {
+        return res.json({ error: 'required field(s) missing'});
       }
 
     })
