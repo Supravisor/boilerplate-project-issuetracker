@@ -1,4 +1,6 @@
 'use strict';
+let array = [];
+let number = 0;
 
 module.exports = function (app) {
 
@@ -12,6 +14,22 @@ module.exports = function (app) {
     .post(function (req, res){
       let project = req.params.project;
       console.log(project);
+      let body = req.body;
+      if (body.issue_title && body.issue_text && body.created_by) {
+        array.push({
+          "id": number++,
+          "issue_title": body.issue_title,
+          "issue_text": body.issue_text,
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": body.created_by,
+          "assigned_to": body.assigned_to || '',
+          "open": true,
+          "status_text": body.status_text || ''
+        });
+        console.log(array);
+      }
+
     })
     
     .put(function (req, res){
