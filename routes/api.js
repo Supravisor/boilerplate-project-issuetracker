@@ -13,7 +13,7 @@ module.exports = function (app) {
     
     .post(function (req, res){
       let project = req.params.project;
-      console.log(project);
+//      console.log(project);
       let body = req.body;
       if (body.issue_title && body.issue_text && body.created_by) {
         array.push({
@@ -27,7 +27,7 @@ module.exports = function (app) {
           "open": true,
           "status_text": body.status_text || ''
         });
-        console.log(array);
+//        console.log(array);
         return res.json(array[array.length - 1]);
       } else {
         return res.json({ error: 'required field(s) missing'});
