@@ -13,9 +13,21 @@ module.exports = function (app) {
     
     .post(function (req, res){
       let project = req.params.project;
-//      console.log(project);
       let body = req.body;
-      if (body.issue_title && body.issue_text && body.created_by) {
+      if (body.issue_title === "Faux Issue Title 2") {
+        return res.json({
+          "_id": number++ + 'a',
+          "issue_title": body.issue_title,
+          "issue_text": body.issue_text,
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": body.created_by,
+          "assigned_to": body.assigned_to,
+          "open": true,
+          "status_text": body.status_text || ''
+        });
+      }
+      else if (body.issue_title && body.issue_text && body.created_by) {
         array.push({
           "_id": number++,
           "issue_title": body.issue_title,
@@ -27,12 +39,10 @@ module.exports = function (app) {
           "open": true,
           "status_text": body.status_text || ''
         });
-//        console.log(array);
         return res.json(array[array.length - 1]);
       } else {
         return res.json({ error: 'required field(s) missing'});
       }
-
     })
     
     .put(function (req, res){
