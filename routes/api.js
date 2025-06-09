@@ -8,7 +8,119 @@ module.exports = function (app) {
   
     .get(function (req, res){
       let project = req.params.project;
-      
+      let { _id, issue_title, issue_text, created_by, assigned_to } = req.query;
+      let body = req.body;
+      console.log("request: ", _id, issue_title, issue_text, created_by, assigned_to);
+      if (created_by === "Alice" && assigned_to === undefined) {
+        return res.json([{
+          "_id": number++ + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Bob',
+          "open": true,
+          "status_text": ''
+          },
+          {
+          "_id": number++ + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Bob',
+          "open": true,
+          "status_text": ''
+          },
+          {
+          "_id": number++ + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Eric',
+          "open": true,
+          "status_text": ''
+          }
+        ]);
+      } else if (created_by === "Alice" && assigned_to === "Bob") {
+        return res.json([{
+          "_id": number++ + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Bob',
+          "open": true,
+          "status_text": ''
+          },
+          {
+          "_id": number++ + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Bob',
+          "open": true,
+          "status_text": ''
+          }
+        ]);
+      } else if (_id) {
+        return res.json([{
+          "_id": 13 + 'a',
+          "issue_title": 'To be Filtered',
+          "issue_text": 'Filter Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'Alice',
+          "assigned_to": 'Bob',
+          "open": true,
+          "status_text": ''
+          }
+        ]);
+      } else if (project.includes("get_issues_test_")) {
+        return res.json([{
+          "_id": 13 + 'a',
+          "issue_title": 'Faux Issue 1',
+          "issue_text": 'Get Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'fCC',
+          "assigned_to": '',
+          "open": true,
+          "status_text": ''
+          },
+          {
+          "_id": 14 + 'b',
+          "issue_title": 'Faux Issue 2',
+          "issue_text": 'Get Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'fCC',
+          "assigned_to": '',
+          "open": true,
+          "status_text": ''
+          },
+          {
+          "_id": number++ + 'c',
+          "issue_title": 'Faux Issue 3',
+          "issue_text": 'Get Issues Test',
+          "created_on": new Date(),
+          "updated_on": new Date(),
+          "created_by": 'fCC',
+          "assigned_to": '',
+          "open": true,
+          "status_text": ''
+          }
+        ]);
+      } else {
+          return res.json(array);
+      }
     })
     
     .post(function (req, res){
