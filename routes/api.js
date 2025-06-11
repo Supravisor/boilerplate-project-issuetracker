@@ -165,31 +165,31 @@ console.log(body.issue_text, id, array.length);
 
       if (id >= 0) {
 console.log(body.issue_text, id, array.length);
+
+        for (let i = 0; i < array.length; i++) {
+          if (body.issue_title !== undefined) {
+            array[id]['issue_title'] = body.issue_title;
+          }
+          if (body.issue_text !== undefined) {
+            array[id]['issue_text'] = body.issue_text;
+          }
+          if (body.created_by !== undefined) {
+            array[id].created_by =  body.created_by;
+          }
+          if (body.assigned_to !== undefined) {
+            array[id].assigned_to =  body.assigned_to;
+          }
+            array[id].updated_on =  new Date();
+          if (body.open === false) {
+            array[id].open = body.open;
+          }
+          if (body.status_text !== undefined) {
+            array[id].status_text = body.status_text;
+          }
+        }
+
         return res.json({  result: 'successfully updated', '_id': body._id });
 
-/*
-        if (body.issue_title !== undefined) {
-          array[id]['issue_title'] = body.issue_title;
-        }
-        if (body.issue_text !== undefined) {
-          array[id]['issue_text'] = body.issue_text;
-        }
-        if (body.created_by !== undefined) {
-          array[id].created_by =  body.created_by;
-        }
-        if (body.assigned_to !== undefined) {
-          array[id].assigned_to =  body.assigned_to;
-        }
-        array[body._id].updated_on =  new Date();
-
-        if (body.open === false) {
-          array[id].open = body.open;
-        }
-        if (body.status_text !== undefined) {
-          array[id].status_text = body.status_text;
-        }
-        */
-        return res.json({  result: 'successfully updated', '_id': body._id });
       }
     })
     
