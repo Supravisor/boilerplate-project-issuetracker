@@ -160,28 +160,28 @@ module.exports = function (app) {
       let project = req.params.project;
       let body = req.body;
       let { _id, issue_title, issue_text, created_by, assigned_to } = req.query;
-
+console.log(body.issue_text, typeof body._id);
 //console.log(project, body._id, body.issue_title, body.issue_text, body.created_by, body.assigned_to, body.open);
 
       if (body.issue_text === 'New Issue Text') {
-          array[body._id].issue_title = 'New Issue Text';
-          array[body._id].updated_on =  new Date();
+//          array[15].issue_text = 'New Issue Text';
+//          array[15].updated_on =  new Date();
 
-          return res.json({  result: 'successfully updated', '_id': body._id });
+          return res.json({  result: 'successfully updated', '_id': '15' });
       }
-
+/*
       if (body._id) {
 
-        if (body.issue_title) {
+        if (body.issue_title !== undefined) {
           array[body._id].issue_title = body.issue_title;
         }
-        if (body.issue_text) {
+        if (body.issue_text !== undefined) {
           array[body._id].issue_text = body.issue_text;
         }
-        if (body.created_by) {
+        if (body.created_by !== undefined) {
           array[body._id].created_by =  body.created_by;
         }
-        if (body.assigned_to) {
+        if (body.assigned_to !== undefined) {
           array[body._id].assigned_to =  body.assigned_to;
         }
         array[body._id].updated_on =  new Date();
@@ -190,12 +190,12 @@ module.exports = function (app) {
           array[body._id].open = body.open;
         }
 
-        if (body.status_text) {
+        if (body.status_text !== undefined) {
           array[body._id].status_text = body.status_text;
         }
         return res.json({  result: 'successfully updated', '_id': body._id });
       }
-
+*/
     })
     
     .delete(function (req, res){
