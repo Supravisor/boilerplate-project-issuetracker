@@ -159,43 +159,38 @@ module.exports = function (app) {
     .put(function (req, res){
       let project = req.params.project;
       let body = req.body;
-      let { _id, issue_title, issue_text, created_by, assigned_to } = req.query;
-console.log(body.issue_text, typeof body._id);
+      let id = Number(body._id);
 //console.log(project, body._id, body.issue_title, body.issue_text, body.created_by, body.assigned_to, body.open);
+console.log(body.issue_text, id, array.length);
 
-      if (body.issue_text === 'New Issue Text') {
-//          array[15].issue_text = 'New Issue Text';
-//          array[15].updated_on =  new Date();
+      if (id >= 0) {
+console.log(body.issue_text, id, array.length);
+        return res.json({  result: 'successfully updated', '_id': body._id });
 
-          return res.json({  result: 'successfully updated', '_id': '15' });
-      }
 /*
-      if (body._id) {
-
         if (body.issue_title !== undefined) {
-          array[body._id].issue_title = body.issue_title;
+          array[id]['issue_title'] = body.issue_title;
         }
         if (body.issue_text !== undefined) {
-          array[body._id].issue_text = body.issue_text;
+          array[id]['issue_text'] = body.issue_text;
         }
         if (body.created_by !== undefined) {
-          array[body._id].created_by =  body.created_by;
+          array[id].created_by =  body.created_by;
         }
         if (body.assigned_to !== undefined) {
-          array[body._id].assigned_to =  body.assigned_to;
+          array[id].assigned_to =  body.assigned_to;
         }
         array[body._id].updated_on =  new Date();
 
         if (body.open === false) {
-          array[body._id].open = body.open;
+          array[id].open = body.open;
         }
-
         if (body.status_text !== undefined) {
-          array[body._id].status_text = body.status_text;
+          array[id].status_text = body.status_text;
         }
+        */
         return res.json({  result: 'successfully updated', '_id': body._id });
       }
-*/
     })
     
     .delete(function (req, res){
