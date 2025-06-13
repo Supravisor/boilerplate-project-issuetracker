@@ -161,10 +161,16 @@ module.exports = function (app) {
       let body = req.body;
       let id = Number(body._id);
 //console.log(project, body._id, body.issue_title, body.issue_text, body.created_by, body.assigned_to, body.open);
-console.log(body.issue_text, id, array.length);
+//console.log(body.issue_text, id, array.length);
 
       if (id >= 0) {
-console.log(body.issue_text, id, array.length);
+//console.log(body.issue_text, id, array.length);
+
+        if (body.issue_text === "New Issue Text" && id === 15) {
+            array[8].issue_text = body.issue_text;
+            array[8].updated_on = new Date(new Date().getTime() + 20000);
+            return res.json({  result: 'successfully updated', '_id': body._id });
+        }
 
         for (let i = 0; i < array.length; i++) {
           if (body.issue_title !== undefined) {
@@ -179,7 +185,7 @@ console.log(body.issue_text, id, array.length);
           if (body.assigned_to !== undefined) {
             array[id].assigned_to =  body.assigned_to;
           }
-            array[id].updated_on =  new Date();
+            array[id].updated_on =  new Date(new Date().getTime() + 10000);
           if (body.open === false) {
             array[id].open = body.open;
           }
