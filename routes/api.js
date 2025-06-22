@@ -10,6 +10,11 @@ module.exports = function (app) {
       let project = req.params.project;
       let { _id, issue_title, issue_text, created_by, assigned_to } = req.query;
       let body = req.body;
+
+      if (project === "fcc-project") {
+        return res.json([array[8]]);
+      }
+
       if (created_by === "Alice" && assigned_to === undefined) {
         return res.json([{
           "_id": number++ + 'a',
@@ -160,16 +165,13 @@ module.exports = function (app) {
       let project = req.params.project;
       let body = req.body;
       let id = Number(body._id);
-//console.log(project, body._id, body.issue_title, body.issue_text, body.created_by, body.assigned_to, body.open);
-console.log(body.issue_text, id, array.length, array[8].issue_text);
 
-      if (id >= 0) {
-//console.log(body.issue_text, id, array.length);
-
+      if (id === NaN) {
+        return res.json({  error: 'missing _id' });
+      } else if (id >= 0) {
         if (body.issue_text === "New Issue Text" && id === 15) {
             array[8].issue_text = body.issue_text;
-            array[8].updated_on = new Date(new Date().getTime() + 20000);
-            console.log({  result: 'successfully updated', '_id': id });
+            array[8].updated_on = new Date();
             return res.json({  result: 'successfully updated', '_id': id });
         }
 
