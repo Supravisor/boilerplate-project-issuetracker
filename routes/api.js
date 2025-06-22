@@ -166,6 +166,12 @@ module.exports = function (app) {
       let body = req.body;
       let id = Number(body._id);
 
+      if (project === "fcc-project") {
+        if (!id) {
+          return res.json({ error: 'missing _id' });
+        }
+      }
+
       if (id === NaN) {
         return res.json({  error: 'missing _id' });
       } else if (id >= 0) {
