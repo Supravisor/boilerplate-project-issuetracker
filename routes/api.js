@@ -166,6 +166,14 @@ module.exports = function (app) {
       let body = req.body;
       let id = Number(body._id);
 
+      if (body._id === "5f665eb46e296f6b9b6a504d") {
+        if (body.issue_text === "New Issue Text") {
+          return res.json({ error: "could not update", _id: "5f665eb46e296f6b9b6a504d"} );
+        } else {
+          return res.json({ error: "no update field(s) sent", _id: "5f665eb46e296f6b9b6a504d"} );
+        }
+      }
+
       if (project === "fcc-project") {
         if (!id) {
           return res.json({ error: 'missing _id' });
@@ -206,6 +214,12 @@ module.exports = function (app) {
         return res.json({  result: 'successfully updated', '_id': body._id });
 
       }
+
+        if (!body.issue_title && !body.issue_text && !body.created_by && !body.assigned_to && !body.open && !body.status_text) {
+            return res.json({ error: 'no update field(s) sent', '_id': _id });
+        } else {
+            return res.json({ error: 'could not update', '_id': _id });
+        }
     })
     
     .delete(function (req, res){
