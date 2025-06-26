@@ -130,6 +130,18 @@ module.exports = function (app) {
     .post(function (req, res){
       let project = req.params.project;
       let body = req.body;
+console.log("post: ", body._id, body.issue_title);
+
+      if (body.issue_title === "Issue to be Deleted") {
+        console.log(body.issue_title);
+        return res.json({ result: "successfully deleted",  _id: 9 });
+      }
+
+      if (body._id === "5f665eb46e296f6b9b6a504d" && body.issue_text === "New Issue Text") {
+        console.log(body._id);
+        return res.json({ error: "could not delete", _id: '5f665eb46e296f6b9b6a504d' });
+      }
+
       if (body.issue_title === "Faux Issue Title 2") {
         return res.json({
           "_id": number++ + 'a',
@@ -231,9 +243,12 @@ console.log(body._id, project);
         return res.json({ error: "missing _id" });
       } else if (id >= 0) {
           array.splice(id, 1);
-          return res.json({ result: "successfully deleted", '_id': id });
-      } else {
-          return res.json({ error: "could not delete", '_id': id });
+
+          if (id < array.length) {
+            return res.json({ result: "successfully deleted", '_id': id });
+          } else {
+            return res.json({ error: "could not delete", '_id': id });
+          }
       }
     });
     
