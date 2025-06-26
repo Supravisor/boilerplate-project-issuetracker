@@ -224,7 +224,17 @@ module.exports = function (app) {
     
     .delete(function (req, res){
       let project = req.params.project;
-      
+      let body = req.body;
+      let id = Number(body._id);
+console.log(body._id, project);
+      if (id === undefined) {
+        return res.json({ error: "missing _id" });
+      } else if (id >= 0) {
+          array.splice(id, 1);
+          return res.json({ result: "successfully deleted", '_id': id });
+      } else {
+          return res.json({ error: "could not delete", '_id': id });
+      }
     });
     
 };
