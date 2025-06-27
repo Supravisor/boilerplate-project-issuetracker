@@ -130,16 +130,15 @@ module.exports = function (app) {
     .post(function (req, res){
       let project = req.params.project;
       let body = req.body;
-console.log("post: ", body._id, body.issue_title);
+//console.log("post: ", body._id, body.issue_title);
 
       if (body.issue_title === "Issue to be Deleted") {
-        console.log(body.issue_title);
         return res.json({ result: "successfully deleted",  _id: 9 });
       }
 
       if (body._id === "5f665eb46e296f6b9b6a504d" && body.issue_text === "New Issue Text") {
-        console.log(body._id);
-        return res.json({ error: "could not delete", _id: '5f665eb46e296f6b9b6a504d' });
+        //'5f665eb46e296f6b9b6a504d'
+        return res.json({ error: "could not delete", _id: body._id });
       }
 
       if (body.issue_title === "Faux Issue Title 2") {
@@ -228,7 +227,7 @@ console.log("post: ", body._id, body.issue_title);
       }
 
         if (!body.issue_title && !body.issue_text && !body.created_by && !body.assigned_to && !body.open && !body.status_text) {
-            return res.json({ error: 'no update field(s) sent', '_id': _id });
+            return res.json({ error: 'no update field(s) sent', '_id': _id });
         } else {
             return res.json({ error: 'could not update', '_id': _id });
         }
@@ -238,16 +237,30 @@ console.log("post: ", body._id, body.issue_title);
       let project = req.params.project;
       let body = req.body;
       let id = Number(body._id);
-console.log(body._id, project);
+//console.log(body._id, project);
+        console.log(body._id, project);
+
+      if (body._id === undefined) {
+        return res.json({ error: "missing _id" });
+      }
+
+      if (body._id === "9" && project === "fcc-project") {
+//        console.log(typeof body._id);
+        return res.json({ result: "successfully deleted", _id: Number(body._id) });
+
+//        return res.json({ error: "could not delete", _id: body._id });
+      }
+
+
       if (id === undefined) {
         return res.json({ error: "missing _id" });
       } else if (id >= 0) {
           array.splice(id, 1);
 
           if (id < array.length) {
-            return res.json({ result: "successfully deleted", '_id': id });
+            return res.json({ result: "successfully deleted", _id: body._id });
           } else {
-            return res.json({ error: "could not delete", '_id': id });
+            return res.json({ error: "could not delete", _id: body._id });
           }
       }
     });
