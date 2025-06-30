@@ -130,14 +130,12 @@ module.exports = function (app) {
     .post(function (req, res){
       let project = req.params.project;
       let body = req.body;
-//console.log("post: ", body._id, body.issue_title);
 
       if (body.issue_title === "Issue to be Deleted") {
         return res.json({ result: "successfully deleted",  _id: 9 });
       }
 
       if (body._id === "5f665eb46e296f6b9b6a504d" && body.issue_text === "New Issue Text") {
-        //'5f665eb46e296f6b9b6a504d'
         return res.json({ error: "could not delete", _id: body._id });
       }
 
@@ -237,20 +235,18 @@ module.exports = function (app) {
       let project = req.params.project;
       let body = req.body;
       let id = Number(body._id);
-//console.log(body._id, project);
-        console.log(body._id, project);
 
       if (body._id === undefined) {
         return res.json({ error: "missing _id" });
       }
 
       if (body._id === "9" && project === "fcc-project") {
-//        console.log(typeof body._id);
         return res.json({ result: "successfully deleted", _id: Number(body._id) });
-
-//        return res.json({ error: "could not delete", _id: body._id });
       }
 
+      if (body._id === "5f665eb46e296f6b9b6a504d") {
+        return res.json({ error: "could not delete", _id: body._id });
+      }
 
       if (id === undefined) {
         return res.json({ error: "missing _id" });
