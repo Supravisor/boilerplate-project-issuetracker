@@ -12,7 +12,6 @@ suite('Functional Tests', function() {
       test( 'Create an issue with every field', ( done ) => {
         chai.request( server )
           .post( '/api/issues/test' )
-          .set( 'content-type', 'application/x-www-form-urlencoded' )
           .send( {
             issue_title : 'Title',
             issue_text  : 'Text',
@@ -43,7 +42,6 @@ suite('Functional Tests', function() {
       test( 'Create an issue with only required fields', ( done ) => {
         chai.request( server )
           .post( '/api/issues/test' )
-          .set( 'content-type', 'application/x-www-form-urlencoded' )
           .send( {
             issue_title : 'Required fields',
             issue_text  : 'Text',
@@ -69,6 +67,22 @@ suite('Functional Tests', function() {
             done( );
           } );
       } );
+
+    test('Create an issue with missing required fields', (done) => {
+      chai.request(server)
+        .post('/api/issues/test')
+        .send({
+          issue_text: 'text',
+          created_by: 'Me',
+          assigned_to: 'You',
+          status_text: 'To update'
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 200);
+          assert.include(res.text, 'required field(s) missing');
+          done();
+        })
+    });
 
     });
 
