@@ -40,6 +40,35 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      test( 'Create an issue with only required fields', ( done ) => {
+        chai.request( server )
+          .post( '/api/issues/test' )
+          .set( 'content-type', 'application/x-www-form-urlencoded' )
+          .send( {
+            issue_title : 'Required fields',
+            issue_text  : 'Text',
+            created_by  : 'You',
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.property( res.body, '_id' );
+            assert.property( res.body, 'issue_title' );
+            assert.include( res.body['issue_title'], 'Required fields' );
+            assert.property( res.body, 'issue_text' );
+            assert.include( res.body['issue_text'], 'Text' );
+            assert.property( res.body, 'created_by' );
+            assert.include( res.body['created_by'], 'You' );
+            assert.property( res.body, 'assigned_to' );
+            assert.include( res.body['assigned_to'], '' );
+            assert.property( res.body, 'status_text' );
+            assert.include( res.body['status_text'], '' );
+            assert.property( res.body, 'open' );
+            assert.isTrue( res.body['open'] );
+            assert.property( res.body, 'created_on' );
+            assert.property( res.body, 'updated_on' );
+            done( );
+          } );
+      } );
 
     });
 
