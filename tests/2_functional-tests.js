@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
 
-    suite( 'POST /api/issues/{project} => object with issue data', ( ) => {
+    suite( 'POST /api/issues/{project} =>', ( ) => {
 
       test( 'Create an issue with every field', ( done ) => {
         chai.request( server )
@@ -87,7 +87,7 @@ suite('Functional Tests', function() {
     });
 
 
-    suite( 'GET /api/issues/{project} => Array of objects with issue data', ( ) => {
+    suite( 'GET /api/issues/{project} =>', ( ) => {
       
       test( 'View issues on a project', ( done ) => {
         chai.request( server )
@@ -109,6 +109,21 @@ suite('Functional Tests', function() {
           } );
       });
 
+      test( 'View issues on project with one filter', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id : '1',
+            issue_title : 'Required fields',
+            issue_text  : 'Text',
+            created_by  : 'You',
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert( res.text, 'successfully updated' );
+            done( );
+          } );
+      } );
 
 
     });
