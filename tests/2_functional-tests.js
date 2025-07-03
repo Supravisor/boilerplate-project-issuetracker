@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
 
-    suite( 'POST /api/issues/{project} =>', ( ) => {
+    suite( 'POST /api/issues/{project}', ( ) => {
 
       test( 'Create an issue with every field', ( done ) => {
         chai.request( server )
@@ -68,26 +68,26 @@ suite('Functional Tests', function() {
           } );
       } );
 
-    test('Create an issue with missing required fields', (done) => {
-      chai.request(server)
-        .post('/api/issues/test')
-        .send({
-          issue_text: 'text',
-          created_by: 'Me',
-          assigned_to: 'You',
-          status_text: 'To update'
+      test('Create an issue with missing required fields', (done) => {
+        chai.request(server)
+          .post('/api/issues/test')
+          .send({
+            issue_text: 'text',
+            created_by: 'Me',
+            assigned_to: 'You',
+            status_text: 'To update'
         })
-        .end((err, res) => {
-          assert.equal(res.status, 200);
-          assert.include(res.text, 'required field(s) missing');
-          done();
-        })
+          .end((err, res) => {
+            assert.equal(res.status, 200);
+            assert.include(res.text, 'required field(s) missing');
+            done();
+          })
+      });
+
     });
 
-    });
 
-
-    suite( 'GET /api/issues/{project} =>', ( ) => {
+    suite( 'GET /api/issues/{project}', ( ) => {
       
       test( 'View issues on a project', ( done ) => {
         chai.request( server )
@@ -137,11 +137,28 @@ suite('Functional Tests', function() {
             assert.property( res.body[0], 'updated_on' );
             assert.property( res.body[0], 'open' );
             done( );
+      } );
+
+    } );
+
+    suite( 'PUT request to /api/issues/{project}', ( ) => {
+      
+      test( 'Update one field on an issue', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id: '1',
+            issue_title: 'Update field'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.include( res.text, 'successfully updated' );
+            done( );
           } );
       } );
 
+    } );
 
-
-    });
+  });
 
 });
