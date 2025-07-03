@@ -123,7 +123,23 @@ suite('Functional Tests', function() {
             assert( res.text, 'successfully updated' );
             done( );
           } );
-      } );
+      });
+
+      test( 'View issues on a project with multiple filters', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id         : '1',
+            issue_title : 'First field',
+            issue_text  : 'Second field'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.include( res.text, 'successfully updated' );
+            done( );
+          } );
+      });
+
 
 
     });
