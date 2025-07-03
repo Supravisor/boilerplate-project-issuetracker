@@ -111,34 +111,34 @@ suite('Functional Tests', function() {
 
       test( 'View issues on project with one filter', ( done ) => {
         chai.request( server )
-          .put( '/api/issues/test' )
-          .send( {
-            _id : '1',
-            issue_title : 'Required fields',
-            issue_text  : 'Text',
-            created_by  : 'You',
-          } )
+          .get( '/api/issues/test' )
+          .query( { } )
           .end( ( err,res ) => {
             assert.equal( res.status, 200 );
-            assert( res.text, 'successfully updated' );
+            assert.property( res.body[0], 'issue_text' );
             done( );
           } );
-      });
+      } );
 
       test( 'View issues on a project with multiple filters', ( done ) => {
         chai.request( server )
-          .put( '/api/issues/test' )
-          .send( {
-            _id         : '1',
-            issue_title : 'First field',
-            issue_text  : 'Second field'
-          } )
+          .get( '/api/issues/test' )
+          .query( { } )
           .end( ( err,res ) => {
             assert.equal( res.status, 200 );
-            assert.include( res.text, 'successfully updated' );
+            assert.isArray( res.body );
+            assert.property( res.body[0], '_id' );
+            assert.property( res.body[0], 'issue_title' );
+            assert.property( res.body[0], 'issue_text' );
+            assert.property( res.body[0], 'assigned_to' );
+            assert.property( res.body[0], 'status_text' );
+            assert.property( res.body[0], 'created_by' );
+            assert.property( res.body[0], 'created_on' );
+            assert.property( res.body[0], 'updated_on' );
+            assert.property( res.body[0], 'open' );
             done( );
           } );
-      });
+      } );
 
 
 
