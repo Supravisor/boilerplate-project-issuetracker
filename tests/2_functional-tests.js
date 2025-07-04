@@ -141,6 +141,8 @@ suite('Functional Tests', function() {
 
     } );
 
+  });
+
     suite( 'PUT request to /api/issues/{project}', ( ) => {
       
       test( 'Update one field on an issue', ( done ) => {
@@ -157,8 +159,21 @@ suite('Functional Tests', function() {
           } );
       } );
 
-    } );
+      test( 'Update multiple fields on an issue', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id         : '1',
+            issue_title : 'One update',
+            issue_text  : 'Second update'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.include( res.text, 'successfully updated' );
+            done( );
+          } );
+      } );
 
-  });
+    } );
 
 });
