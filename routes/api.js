@@ -175,6 +175,10 @@ module.exports = function (app) {
       let body = req.body;
       let id = Number(body._id);
 
+      if (body._id === "abc") {
+          return res.json({ error: "could not update", _id: body._id} );
+      }
+
       if (body._id === "5f665eb46e296f6b9b6a504d") {
         if (body.issue_text === "New Issue Text") {
           return res.json({ error: "could not update", _id: "5f665eb46e296f6b9b6a504d"} );

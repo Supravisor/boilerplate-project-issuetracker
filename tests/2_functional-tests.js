@@ -207,6 +207,19 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      test( 'Update an issue with an invalid _id', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id: 'abc'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.include( res.text, 'could not update' );
+            done( );
+          } );
+      } );
+
     } );
 
 });
