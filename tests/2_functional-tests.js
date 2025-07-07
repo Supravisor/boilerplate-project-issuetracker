@@ -187,6 +187,26 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      test( 'Update an issue with no fields to update', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id: '1'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            assert.notProperty( res.body, 'issue_title' );
+            assert.notProperty( res.body, 'issue_text' );
+            assert.notProperty( res.body, 'assigned_to' );
+            assert.notProperty( res.body, 'status_text' );
+            assert.notProperty( res.body, 'created_by' );
+            assert.notProperty( res.body, 'created_on' );
+            assert.notProperty( res.body, 'updated_on' );
+            assert.notProperty( res.body, 'open' );
+            done( );
+          } );
+      } );
+
     } );
 
 });
