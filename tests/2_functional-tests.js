@@ -222,4 +222,20 @@ suite('Functional Tests', function() {
 
     } );
 
+    suite( 'DELETE /api/issues/{project}', ( ) => {
+
+      test( 'Delete an issue', ( done ) => {
+        chai.request( server )
+          .delete( '/api/issues/test' )
+          .send( {
+            _id: null
+          } )
+          .end( ( err,res ) => {
+            assert.include( res.text, 'successfully deleted' );
+            done( );
+          } );
+      } );
+
+    } );
+
 });
