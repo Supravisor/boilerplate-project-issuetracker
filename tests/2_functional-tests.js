@@ -249,6 +249,16 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      test( 'Delete an issue with missing _id', ( done ) => {
+        chai.request( server )
+          .delete( '/api/issues/test' )
+          .send( { } )
+          .end( ( err,res ) => {
+            assert.include( res.text, 'missing _id' );
+            done( );
+          } );
+      } );
+
     } );
 
 });
