@@ -236,6 +236,19 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      
+      test( 'Delete an issue with an invalid _id', ( done ) => {
+        chai.request( server )
+          .delete( '/api/issues/test' )
+          .send( {
+            _id: null
+          } )
+          .end( ( err,res ) => {
+            assert.include( res.text, 'could not delete' );
+            done( );
+          } );
+      } );
+
     } );
 
 });
