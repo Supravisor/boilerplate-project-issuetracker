@@ -174,6 +174,19 @@ suite('Functional Tests', function() {
           } );
       } );
 
+      test( 'Update an issue with missing _id', ( done ) => {
+        chai.request( server )
+          .put( '/api/issues/test' )
+          .send( {
+            _id: null,
+            issue_title: 'No _id'
+          } )
+          .end( ( err,res ) => {
+            assert.equal( res.status, 200 );
+            done( );
+          } );
+      } );
+
     } );
 
 });
